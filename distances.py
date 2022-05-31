@@ -61,6 +61,45 @@ def dijkstra(G, s):
         print("====")
     return dist
 
+def distancias_no_ponderado(G, s):
+    Q = []
+    estado={}
+    dist={}
+
+    for w in G.nodes():
+        estado[w] = 0
+        dist[w] = Inf
+    
+    estado[s] = 1
+    dist[s] = 0
+    Q.append(s)
+
+    print("====")
+    print("Q", Q)
+    print("Vértice añadido", s)
+    print("Vértice eliminado", "-")
+    print("dist", list(dist.values()))
+    print("====")
+    while not not Q:
+        w = Q[0]
+        neighbours = sorted(list(G.neighbors(w)))
+        for u in neighbours:
+            if estado[u] == 0:
+                Q.append(u)
+                estado[u] = 1
+                dist[u] = dist[w] + 1
+                print("Q", Q)
+                print("Vértice añadido", u)
+                print("Vértice eliminado", "-")
+                print("dist", list(dist.values()))
+        e = Q[0]
+        Q = Q[1:]
+        print("Q", Q)
+        print("Vértice añadido", "-")
+        print("Vértice eliminado", e)
+        print("dist", list(dist.values()))
+    return dist
+
 if __name__ == '__main__':
     adjs = {
         'V': {
@@ -119,6 +158,17 @@ if __name__ == '__main__':
     }
 
 
-
     G = nx.from_dict_of_dicts(adjtwo)
-    dijkstra(G, 1)
+    #dijkstra(G, 1)
+
+    adjs = {
+        1: [2, 3, 4],
+        2: [1, 5],
+        3: [1, 6],
+        4: [1],
+        5: [2, 6],
+        6: [3, 5, 7],
+        7: [6]
+    }
+    Galt = nx.from_dict_of_lists(adjs)
+    distancias_no_ponderado(Galt, 1)
