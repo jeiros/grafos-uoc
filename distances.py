@@ -125,8 +125,8 @@ def floyd(G):
     print(d[0])
 
     for k in range(1, n):
-        for i in range(1, n):
-            for j in range(1, n):
+        for i in range(n):
+            for j in range(n):
                 d[k][i, j] = min(
                     d[k-1][i, j],
                     d[k-1][i, k] + d[k-1][k , j]
