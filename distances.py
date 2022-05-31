@@ -1,5 +1,7 @@
 import networkx as nx
 from numpy import Inf
+import numpy as np
+from collections import OrderedDict
 
 def print_nodes(G):
     print("Vértices:|", end="")
@@ -100,6 +102,40 @@ def distancias_no_ponderado(G, s):
         print("dist", list(dist.values()))
     return dist
 
+def floyd(G):
+    n = len(G.nodes())
+    A = list(G.edges())
+    d = []
+    x = np.empty(shape=(n, n))
+    for _ in range(n):
+        d.append(
+            np.full_like(x, fill_value=Inf)
+        )
+
+
+    for i in range(n):
+        for j in range(n):
+            if i==j:                
+                d[0][i, j] = 0
+            elif ((list(G.nodes())[i], list(G.nodes())[j]) in A) or (list(G.nodes())[j], list(G.nodes())[i]) in A   :
+                d[0][i, j] = G.get_edge_data(list(G.nodes())[i], list(G.nodes())[j])["weight"]
+            else:
+                d[0][i, j] = Inf
+    print(G.nodes())
+    print(d[0])
+
+    for k in range(1, n):
+        for i in range(1, n):
+            for j in range(1, n):
+                d[k][i, j] = min(
+                    d[k-1][i, j],
+                    d[k-1][i, k] + d[k-1][k , j]
+                )
+    for di in d:
+        print("===")
+        print(di)
+    return d[-1]
+
 if __name__ == '__main__':
     adjs = {
         'V': {
@@ -171,4 +207,28 @@ if __name__ == '__main__':
         7: [6]
     }
     Galt = nx.from_dict_of_lists(adjs)
-    distancias_no_ponderado(Galt, 1)
+    #distancias_no_ponderado(Galt, 1)
+
+
+    ciudades = {
+        'Lleida' : {
+            'Manresa' : {'weight' : 118},
+            'Tarragona' : {'weight' : 91},
+        },
+        'Tarragona' : {
+            'Barcelona' : {'weight' : 105},
+        },
+        'Manresa' : {
+            'Girona' : {'weight' : 157},
+            'Barcelona' : {'weight' : 56},
+        },
+        'Barcelona' : {
+            'Girona' : {'weight' : 96},
+        },
+    }
+    vo = OrderedDict()
+
+    for c in sorted(ciudades.keys()):
+        vo[c] = ciudades[c]
+    G = nx.from_dict_of_dicts(vo)
+    floyd(G)
