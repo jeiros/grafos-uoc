@@ -7,9 +7,9 @@ def havel_hakimi(s):
     # mientras no haya ningun di < 0 y s no sea identicamente 0.
     # Clasificar s en orden decreciente.
     # Eliminar d1 de s y restar 1 unidad a los d1 elementos siguientes.
-    print(s)
+    print(s, "-sort->", end='')
     s.sort(reverse=True)
-    print("sorted {}".format(s))
+    print("{}".format(s))
     head = s.pop(0)
     s = [x - 1 for x in s[:head]] + s[head:]
   print("finished while: {}".format(s))

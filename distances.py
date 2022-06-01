@@ -25,6 +25,7 @@ def print_etiquetas(dist):
     print("\n")
     
 def dijkstra(G, s):
+    print("BEGIN DIJKSTRA")
     U = set()
     dist = {}
     etiquetas = {}
@@ -64,6 +65,7 @@ def dijkstra(G, s):
     return dist
 
 def distancias_no_ponderado(G, s):
+    print("BEGIN DISTANCIAS NO PONDERADO")
     Q = []
     estado={}
     dist={}
@@ -103,6 +105,7 @@ def distancias_no_ponderado(G, s):
     return dist
 
 def floyd(G):
+    print("BEGIN FLOYD")
     n = len(G.nodes())
     A = list(G.edges())
     d = []
@@ -195,7 +198,7 @@ if __name__ == '__main__':
 
 
     G = nx.from_dict_of_dicts(adjtwo)
-    #dijkstra(G, 1)
+    dijkstra(G, 1)
 
     adjs = {
         1: [2, 3, 4],
@@ -207,7 +210,7 @@ if __name__ == '__main__':
         7: [6]
     }
     Galt = nx.from_dict_of_lists(adjs)
-    #distancias_no_ponderado(Galt, 1)
+    distancias_no_ponderado(Galt, 1)
 
 
     ciudades = {
@@ -226,9 +229,6 @@ if __name__ == '__main__':
             'Girona' : {'weight' : 96},
         },
     }
-    vo = OrderedDict()
 
-    for c in sorted(ciudades.keys()):
-        vo[c] = ciudades[c]
-    G = nx.from_dict_of_dicts(vo)
-    floyd(G)
+    Gc = nx.from_dict_of_dicts(ciudades)
+    floyd(Gc)
