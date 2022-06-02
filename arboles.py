@@ -143,6 +143,108 @@ def prim(G, v_inicial=None):
     print("Aristas de T", T.edges(data=True))
     return T
 
+def find_root(T):
+    return [n for n,d in T.in_degree() if d==0][0]
+
+def preorden(T):
+    raiz = find_root(T)
+    print(raiz)
+
+    succ = list(T.successors(raiz))
+    if len(succ) == 2:
+        # Dos hijos
+        r1, r2 = succ
+    elif len(succ) == 1:
+        r1 = succ[0]
+        r2 = None
+    elif len(succ) == 0:
+        # Hoja
+        return None
+
+
+    T_uno = nx.DiGraph()
+    T_uno.add_node(r1)
+    T_uno.add_edges_from(T.edges(r1))
+    for node in nx.descendants(T, r1):
+        T_uno.add_edges_from(T.edges(node))
+    preorden(T_uno)
+    
+    if r2 is not None:
+        T_dos = nx.DiGraph()
+        T_dos.add_node(r2)
+        T_dos.add_edges_from(T.edges(r2))
+        for node in nx.descendants(T, r2):
+            T_dos.add_edges_from(T.edges(node))
+        preorden(T_dos)
+
+def inorden(T):
+    raiz = find_root(T)
+
+    succ = list(T.successors(raiz))
+    if len(succ) == 2:
+        # Dos hijos
+        r1, r2 = succ
+    elif len(succ) == 1:
+        r1 = succ[0]
+        r2 = None
+    elif len(succ) == 0:
+        # Hoja
+        print(raiz)
+        return None
+
+    T_uno = nx.DiGraph()
+    T_uno.add_node(r1)
+    T_uno.add_edges_from(T.edges(r1))
+    for node in nx.descendants(T, r1):
+        T_uno.add_edges_from(T.edges(node))
+    
+    inorden(T_uno)
+    print(raiz)
+
+    if r2 is not None:
+        T_dos = nx.DiGraph()
+        T_dos.add_node(r2)
+        T_dos.add_edges_from(T.edges(r2))
+        for node in nx.descendants(T, r2):
+            T_dos.add_edges_from(T.edges(node))
+        inorden(T_dos)
+
+def postorden(T):
+    raiz = find_root(T)
+    succ = list(T.successors(raiz))
+    if len(succ) == 2:
+        # Dos hijos
+        r1, r2 = succ
+    elif len(succ) == 1:
+        r1 = succ[0]
+        r2 = None
+    elif len(succ) == 0:
+        # Hoja
+        print(raiz)
+        return None
+
+    T_uno = nx.DiGraph()
+    T_uno.add_node(r1)
+    T_uno.add_edges_from(T.edges(r1))
+    for node in nx.descendants(T, r1):
+        T_uno.add_edges_from(T.edges(node))
+    postorden(T_uno)
+    
+    if r2 is not None:
+        T_dos = nx.DiGraph()
+        T_dos.add_node(r2)
+        T_dos.add_edges_from(T.edges(r2))
+        for node in nx.descendants(T, r2):
+            T_dos.add_edges_from(T.edges(node))
+        postorden(T_dos)
+    print(raiz)
+
+def digraph_from_dict_of_lists(adj):
+    G = nx.DiGraph()
+    for node, neighs in adj.items():
+        for n in neighs:
+            G.add_edges_from([(node, n)])
+    return G
 
 if __name__ == '__main__':
     adjs = {
@@ -228,3 +330,34 @@ if __name__ == '__main__':
     Galt = nx.from_dict_of_dicts(alt)
     kruskal(Galt)
     prim(Galt, 'A')
+
+    # Tree tests
+    tree = {
+        1: [2, 3],
+        2: [4, 5],
+        3: [6, 7],
+        5: [8, 9],
+        7: [10, 11]
+    }
+    G = digraph_from_dict_of_lists(tree)
+    print("PREORDEN")
+    preorden(G)
+    print("INORDEN")
+    inorden(G)
+    print("POSTORDEN")
+    postorden(G)
+
+    # Ejercicio 28
+    letras = {
+        'A' : ['B', 'F'],
+        'B' : ['C'],
+        'C' : ['D', 'G'],
+        'D' : ['E']
+    }
+    G = digraph_from_dict_of_lists(letras)
+    print("PREORDEN")
+    preorden(G)
+    print("INORDEN")
+    inorden(G)
+    print("POSTORDEN")
+    postorden(G)
