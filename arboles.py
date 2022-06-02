@@ -83,6 +83,9 @@ def kruskal(G, minimal=True):
 
 def prim(G, v_inicial=None):
     print("BEGIN PRIM")
+    T = nx.Graph()
+    for node in G.nodes():
+        T.add_node(node)
     n = len(G.nodes)
     if v_inicial is None:
         v = random.choice(list(G.nodes))
@@ -98,21 +101,47 @@ def prim(G, v_inicial=None):
     
     E[v] = 0
     etiquetas[v] = (0, v)
+    print_nodes(G)
+    print_Ubitmap(U, G)
+    print_etiquetas(etiquetas)
+
+    U.append(v)
+    print("chose ", v)
+    while len(U) != n:
+        print("====")
+        print_nodes(G)
+        print_Ubitmap(U, G)
+        edges_from_node = sorted(G.edges(v, data=True), key=lambda t: t[2].get('weight', 1))
+        
+        for edge in edges_from_node:
+            tgt = edge[1]
+            if edge[2]['weight'] < etiquetas[tgt][0] and tgt not in U:
+                etiquetas[tgt] = (edge[2]['weight'], v)
+        print_etiquetas(etiquetas)
+        print("====")
+        can_choose = []
+        for node in G.nodes():
+            if node not in U:
+                can_choose.append(node)
+        min_aw = Inf
+        
+        for node in reversed(can_choose):
+            if etiquetas[node][0] <= min_aw:
+                min_aw = etiquetas[node][0]
+                chosen_node = node
+        print("chose ", chosen_node)
+        T.add_edge(chosen_node, etiquetas[chosen_node][1], weight=G.get_edge_data(etiquetas[chosen_node][1], chosen_node)['weight'])
+        U.append(chosen_node)
+        v = chosen_node
 
     print("====")
     print_nodes(G)
     print_Ubitmap(U, G)
     print_etiquetas(etiquetas)
     print("====")
-
-
-    edges_from_node = sorted(G.edges(v, data=True), key=lambda t: t[2].get('weight', 1))
-
-
-
-
-
-
+    print("Peso total", T.size(weight="weight"))
+    print("Aristas de T", T.edges(data=True))
+    return T
 
 
 if __name__ == '__main__':
@@ -123,9 +152,9 @@ if __name__ == '__main__':
         4: [5, 6],
     }
     G = nx.from_dict_of_lists(adjs)
-    T = bfs_arbol_generador(G, 1)
+    # T = bfs_arbol_generador(G, 1)
 
-    T = dfs_arbol_generador(nx.petersen_graph(), 0)
+    # T = dfs_arbol_generador(nx.petersen_graph(), 0)
 
     w = {
         1 : {
@@ -155,4 +184,48 @@ if __name__ == '__main__':
     }
     Gw = nx.from_dict_of_dicts(w)
     T = kruskal(Gw, minimal=True)
-    T = prim(G)
+    T = prim(Gw, 1)
+
+
+    alt = {
+        'A' : {
+            'B' : {'weight' : 3},
+            'D' : {'weight' : 4},
+            'E' : {'weight' : 4},
+        },
+        'B' : {
+            'C' : {'weight' : 10},
+            'E' : {'weight' : 2},
+            'F' : {'weight' : 3},
+        },
+        'C' : {
+            'F' : {'weight' : 6},
+            'G' : {'weight' : 1},
+        },
+        'D' : {
+            'E' : {'weight' : 5},
+            'H' : {'weight' : 6},
+        },
+        'E' : {
+            'F' : {'weight' : 11},
+            'H' : {'weight' : 2},
+            'I' : {'weight' : 1},
+        },
+        'F' : {
+            'G' : {'weight' : 2},
+            'I' : {'weight' : 3},
+            'J' : {'weight' : 11},
+        },
+        'G' : {
+            'J' : {'weight' : 8},
+        },
+        'H' : {
+            'I' : {'weight' : 4},
+        },
+        'I' : {
+            'J' : {'weight' : 7},
+        }
+    }
+    Galt = nx.from_dict_of_dicts(alt)
+    # kruskal(Galt)
+    # prim(Galt, 'A')
