@@ -152,9 +152,8 @@ if __name__ == '__main__':
         4: [5, 6],
     }
     G = nx.from_dict_of_lists(adjs)
-    # T = bfs_arbol_generador(G, 1)
-
-    # T = dfs_arbol_generador(nx.petersen_graph(), 0)
+    bfs_arbol_generador(G, 1)
+    dfs_arbol_generador(nx.petersen_graph(), 0)
 
     w = {
         1 : {
@@ -183,8 +182,8 @@ if __name__ == '__main__':
         }
     }
     Gw = nx.from_dict_of_dicts(w)
-    T = kruskal(Gw, minimal=True)
-    T = prim(Gw, 1)
+    kruskal(Gw, minimal=True)
+    prim(Gw, 1)
 
 
     alt = {
@@ -227,5 +226,5 @@ if __name__ == '__main__':
         }
     }
     Galt = nx.from_dict_of_dicts(alt)
-    # kruskal(Galt)
-    # prim(Galt, 'A')
+    kruskal(Galt)
+    prim(Galt, 'A')
