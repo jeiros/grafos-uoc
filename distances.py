@@ -33,6 +33,7 @@ def dijkstra(G, s):
     for v in G.nodes:
         dist[v] = Inf
         etiquetas[v] = (dist[v], s)
+
     dist[s] = 0
     etiquetas[s] = (dist[s], s)
     print("====")
