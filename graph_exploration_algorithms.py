@@ -182,15 +182,47 @@ if __name__ == '__main__':
     }
 
     G = nx.from_dict_of_dicts(dod)
-    dfs(G, "A")
-    bfs(G, "A")
+    #dfs(G, "A")
+    #bfs(G, "A")
     dfs_aristas(G, "A")
     bfs_aristas(G, "A")
 
 
     Galt = nx.from_dict_of_lists(adjs)
-    dfs(Galt, 1)
-    bfs(Galt, 1)
+    #dfs(Galt, 1)
+    #bfs(Galt, 1)
     dfs_aristas(Galt, 1)
     bfs_aristas(Galt, 1)
 
+  # EXAMEN ANTERIOR
+    g = {
+        'A': ['B', 'D'],
+        'B': ['A', 'C', 'D'],
+        'C': ['B', 'F', 'E'],
+        'D': ['A', 'B'],
+        'E': ['C', 'F'],
+        'F': ['C', 'E']
+    }
+    G = nx.from_dict_of_lists(g)
+    #bfs(G, 'C')
+    #dfs(G, 'C')
+    g = {
+          'A': {
+              'B': {"weight": 5},
+              'D': {"weight": 4}
+          },
+          'B': {
+              'C': {"weight": 2},
+              'D': {"weight": 10},
+          },
+          'C': {
+              'E': {"weight": 3},
+              'F': {"weight": 10}
+          },        
+          'F': {
+              'E': {"weight": 6}
+          },
+      }
+    G = nx.from_dict_of_dicts(g)
+    from distances import floyd
+    floyd(G)

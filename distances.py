@@ -116,29 +116,38 @@ def floyd(G):
             np.full_like(x, fill_value=Inf)
         )
 
+    V = sorted(list(G.nodes()))
 
     for i in range(n):
         for j in range(n):
             if i==j:                
                 d[0][i, j] = 0
-            elif ((list(G.nodes())[i], list(G.nodes())[j]) in A) or (list(G.nodes())[j], list(G.nodes())[i]) in A   :
-                d[0][i, j] = G.get_edge_data(list(G.nodes())[i], list(G.nodes())[j])["weight"]
+            elif ((V[i], V[j]) in A) or (V[j], V[i]) in A:
+                d[0][i, j] = G.get_edge_data(V[i], V[j])["weight"]
             else:
                 d[0][i, j] = Inf
-    print(G.nodes())
+    print(V)
     print(d[0])
+    floyd_warshall(d[0].tolist(), len(G.nodes))
 
-    for k in range(1, n):
-        for i in range(n):
-            for j in range(n):
-                d[k][i, j] = min(
-                    d[k-1][i, j],
-                    d[k-1][i, k] + d[k-1][k , j]
-                )
-    for di in d:
-        print("===")
-        print(di)
-    return d[-1]
+def floyd_warshall(G, nV):
+    distance = list(map(lambda i: list(map(lambda j: j, i)), G))
+    # Adding vertices individually
+    for k in range(nV):
+        for i in range(nV):
+            for j in range(nV):
+                distance[i][j] = min(distance[i][j], distance[i][k] + distance[k][j])
+        print("== {} ==".format(k+1))
+        print_solution(distance, nV)
+
+def print_solution(distance, nV):
+    for i in range(nV):
+        for j in range(nV):
+            if(distance[i][j] == Inf):
+                print("∞", end="\t")
+            else:
+                print(int(distance[i][j]), end="\t")
+        print(" ")
 
 if __name__ == '__main__':
     adjs = {

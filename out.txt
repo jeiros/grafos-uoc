@@ -1,0 +1,211 @@
+BEGIN DIJKSTRA
+====
+Vértices:|1 |2 |3 |4 |5 |6 |7 |
+
+U:|0 |0 |0 |0 |0 |0 |0 |
+
+(dist(·), ·):|(0, 1) |(inf, 1) |(inf, 1) |(inf, 1) |(inf, 1) |(inf, 1) |(inf, 1) |
+
+====
+next_node 1
+Vértices:|1 |2 |3 |4 |5 |6 |7 |
+
+U:|1 |0 |0 |0 |0 |0 |0 |
+
+(dist(·), ·):|(0, 1) |(2, 1) |(4, 1) |(1, 1) |(inf, 1) |(inf, 1) |(inf, 1) |
+
+====
+next_node 4
+Vértices:|1 |2 |3 |4 |5 |6 |7 |
+
+U:|1 |0 |0 |1 |0 |0 |0 |
+
+(dist(·), ·):|(0, 1) |(2, 1) |(3, 4) |(1, 1) |(3, 4) |(9, 4) |(5, 4) |
+
+====
+next_node 2
+Vértices:|1 |2 |3 |4 |5 |6 |7 |
+
+U:|1 |1 |0 |1 |0 |0 |0 |
+
+(dist(·), ·):|(0, 1) |(2, 1) |(3, 4) |(1, 1) |(3, 4) |(9, 4) |(5, 4) |
+
+====
+next_node 3
+Vértices:|1 |2 |3 |4 |5 |6 |7 |
+
+U:|1 |1 |1 |1 |0 |0 |0 |
+
+(dist(·), ·):|(0, 1) |(2, 1) |(3, 4) |(1, 1) |(3, 4) |(8, 3) |(5, 4) |
+
+====
+next_node 5
+Vértices:|1 |2 |3 |4 |5 |6 |7 |
+
+U:|1 |1 |1 |1 |1 |0 |0 |
+
+(dist(·), ·):|(0, 1) |(2, 1) |(3, 4) |(1, 1) |(3, 4) |(8, 3) |(5, 4) |
+
+====
+next_node 7
+Vértices:|1 |2 |3 |4 |5 |6 |7 |
+
+U:|1 |1 |1 |1 |1 |0 |1 |
+
+(dist(·), ·):|(0, 1) |(2, 1) |(3, 4) |(1, 1) |(3, 4) |(6, 7) |(5, 4) |
+
+====
+next_node 6
+Vértices:|1 |2 |3 |4 |5 |6 |7 |
+
+U:|1 |1 |1 |1 |1 |1 |1 |
+
+(dist(·), ·):|(0, 1) |(2, 1) |(3, 4) |(1, 1) |(3, 4) |(6, 7) |(5, 4) |
+
+====
+BEGIN DISTANCIAS NO PONDERADO
+====
+Q [1]
+Vértice añadido 1
+Vértice eliminado -
+dist [0, inf, inf, inf, inf, inf, inf]
+====
+Q [1, 2]
+Vértice añadido 2
+Vértice eliminado -
+dist [0, 1, inf, inf, inf, inf, inf]
+Q [1, 2, 3]
+Vértice añadido 3
+Vértice eliminado -
+dist [0, 1, 1, inf, inf, inf, inf]
+Q [1, 2, 3, 4]
+Vértice añadido 4
+Vértice eliminado -
+dist [0, 1, 1, 1, inf, inf, inf]
+Q [2, 3, 4]
+Vértice añadido -
+Vértice eliminado 1
+dist [0, 1, 1, 1, inf, inf, inf]
+Q [2, 3, 4, 5]
+Vértice añadido 5
+Vértice eliminado -
+dist [0, 1, 1, 1, 2, inf, inf]
+Q [3, 4, 5]
+Vértice añadido -
+Vértice eliminado 2
+dist [0, 1, 1, 1, 2, inf, inf]
+Q [3, 4, 5, 6]
+Vértice añadido 6
+Vértice eliminado -
+dist [0, 1, 1, 1, 2, 2, inf]
+Q [4, 5, 6]
+Vértice añadido -
+Vértice eliminado 3
+dist [0, 1, 1, 1, 2, 2, inf]
+Q [5, 6]
+Vértice añadido -
+Vértice eliminado 4
+dist [0, 1, 1, 1, 2, 2, inf]
+Q [6]
+Vértice añadido -
+Vértice eliminado 5
+dist [0, 1, 1, 1, 2, 2, inf]
+Q [6, 7]
+Vértice añadido 7
+Vértice eliminado -
+dist [0, 1, 1, 1, 2, 2, 3]
+Q [7]
+Vértice añadido -
+Vértice eliminado 6
+dist [0, 1, 1, 1, 2, 2, 3]
+Q []
+Vértice añadido -
+Vértice eliminado 7
+dist [0, 1, 1, 1, 2, 2, 3]
+BEGIN FLOYD
+['Lleida', 'Tarragona', 'Manresa', 'Barcelona', 'Girona']
+[[  0.  91. 118.  inf  inf]
+ [ 91.   0.  inf 105.  inf]
+ [118.  inf   0.  56. 157.]
+ [ inf 105.  56.   0.  96.]
+ [ inf  inf 157.  96.   0.]]
+===
+[[  0.  91. 118.  inf  inf]
+ [ 91.   0.  inf 105.  inf]
+ [118.  inf   0.  56. 157.]
+ [ inf 105.  56.   0.  96.]
+ [ inf  inf 157.  96.   0.]]
+===
+[[  0.  91. 118. 196.  inf]
+ [ 91.   0.  inf 105.  inf]
+ [118.  inf   0.  56. 157.]
+ [196. 105.  56.   0.  96.]
+ [ inf  inf 157.  96.   0.]]
+===
+[[  0.  91. 118. 174. 275.]
+ [ 91.   0.  inf 105.  inf]
+ [118.  inf   0.  56. 157.]
+ [174. 105.  56.   0.  96.]
+ [275.  inf 157.  96.   0.]]
+===
+[[  0.  91. 118. 174. 270.]
+ [ 91.   0. 161. 105. 201.]
+ [118. 161.   0.  56. 152.]
+ [174. 105.  56.   0.  96.]
+ [270. 201. 152.  96.   0.]]
+===
+[[  0.  91. 118. 174. 270.]
+ [ 91.   0. 161. 105. 201.]
+ [118. 161.   0.  56. 152.]
+ [174. 105.  56.   0.  96.]
+ [270. 201. 152.  96.   0.]]
+BEGIN FLOYD
+['A', 'C', 'D', 'E', 'F', 'B']
+[[ 0. inf  4.  5. inf inf]
+ [inf  0. inf inf  4. inf]
+ [ 4. inf  0.  3. inf inf]
+ [ 5. inf  3.  0. inf inf]
+ [inf  4. inf inf  0. inf]
+ [inf inf inf inf inf  0.]]
+===
+[[ 0. inf  4.  5. inf inf]
+ [inf  0. inf inf  4. inf]
+ [ 4. inf  0.  3. inf inf]
+ [ 5. inf  3.  0. inf inf]
+ [inf  4. inf inf  0. inf]
+ [inf inf inf inf inf  0.]]
+===
+[[ 0. inf  4.  5. inf inf]
+ [inf  0. inf inf  4. inf]
+ [ 4. inf  0.  3. inf inf]
+ [ 5. inf  3.  0. inf inf]
+ [inf  4. inf inf  0. inf]
+ [inf inf inf inf inf  0.]]
+===
+[[ 0. inf  4.  5. inf inf]
+ [inf  0. inf inf  4. inf]
+ [ 4. inf  0.  3. inf inf]
+ [ 5. inf  3.  0. inf inf]
+ [inf  4. inf inf  0. inf]
+ [inf inf inf inf inf  0.]]
+===
+[[ 0. inf  4.  5. inf inf]
+ [inf  0. inf inf  4. inf]
+ [ 4. inf  0.  3. inf inf]
+ [ 5. inf  3.  0. inf inf]
+ [inf  4. inf inf  0. inf]
+ [inf inf inf inf inf  0.]]
+===
+[[ 0. inf  4.  5. inf inf]
+ [inf  0. inf inf  4. inf]
+ [ 4. inf  0.  3. inf inf]
+ [ 5. inf  3.  0. inf inf]
+ [inf  4. inf inf  0. inf]
+ [inf inf inf inf inf  0.]]
+===
+[[ 0. inf  4.  5. inf inf]
+ [inf  0. inf inf  4. inf]
+ [ 4. inf  0.  3. inf inf]
+ [ 5. inf  3.  0. inf inf]
+ [inf  4. inf inf  0. inf]
+ [inf inf inf inf inf  0.]]
