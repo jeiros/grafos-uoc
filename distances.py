@@ -63,6 +63,7 @@ def dijkstra(G, s):
                 etiquetas[v] = (dist[v], next_node)
         print_etiquetas(etiquetas)
         print("====")
+    print("END DIJKSTRA")
     return dist
 
 def distancias_no_ponderado(G, s):
@@ -103,6 +104,7 @@ def distancias_no_ponderado(G, s):
         print("Vértice añadido", "-")
         print("Vértice eliminado", e)
         print("dist", list(dist.values()))
+    print("END DISTANCIAS NO PONDERADO")
     return dist
 
 def floyd(G):
@@ -129,6 +131,7 @@ def floyd(G):
     print(V)
     print(d[0])
     floyd_warshall(d[0].tolist(), len(G.nodes))
+    print("END FLOYD")
 
 def floyd_warshall(G, nV):
     distance = list(map(lambda i: list(map(lambda j: j, i)), G))
