@@ -1,6 +1,6 @@
 # grafos-uoc
 
-Algoritmos para la asignatura de Grafos y Complejidad - UOC
+Algoritmos para la asignatura de 75.569 - Grafos y Complejidad [UOC]
 
 
 ```
