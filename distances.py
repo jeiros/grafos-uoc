@@ -153,34 +153,6 @@ def print_solution(distance, nV):
         print(" ")
 
 if __name__ == '__main__':
-    adjs = {
-        'V': {
-            'M': {"weight": 6},
-            'CS': {"weight": 5},
-            'SM': {"weight": 2},
-        },
-        'M': {
-            'T': {"weight": 7},
-            'CS': {"weight": 3},
-        },
-        'CS': {
-            'PV': {"weight": 4},
-        },
-        'SM' : {
-            'F': {"weight": 1},
-        },
-        'F' : {
-            'PV': {"weight": 4},
-            'VS': {"weight":4},
-        },
-        'VS' : {
-            'SR' : {"weight": 2},
-        },
-        'SR' : {
-            'PV': {"weight": 4},
-            'T': {"weight": 3},
-        }
-    }
 
     adjtwo = {
         1 : {

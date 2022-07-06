@@ -331,28 +331,15 @@ if __name__ == '__main__':
     kruskal(Galt)
     prim(Galt, 'A')
 
-    # Tree tests
-    tree = {
-        1: [2, 3],
-        2: [4, 5],
-        3: [6, 7],
-        5: [8, 9],
-        7: [10, 11]
-    }
-    G = digraph_from_dict_of_lists(tree)
-    print("PREORDEN")
-    preorden(G)
-    print("INORDEN")
-    inorden(G)
-    print("POSTORDEN")
-    postorden(G)
-
     # Ejercicio 28
     letras = {
         'A' : ['B', 'F'],
-        'B' : ['C'],
+        'B' : ['-', 'C'],
         'C' : ['D', 'G'],
-        'D' : ['E']
+        'D' : ['-', 'E'],
+        'E' : ['-', '-'],
+        'F' : ['-', '-'],
+        'G' : ['-', '-'],        
     }
     G = digraph_from_dict_of_lists(letras)
     print("PREORDEN")
