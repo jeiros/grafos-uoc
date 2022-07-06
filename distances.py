@@ -133,6 +133,9 @@ def floyd(G):
     print("END FLOYD")
 
 def floyd_warshall(G, nV):
+    '''
+    No usar directamente
+    '''
     distance = list(map(lambda i: list(map(lambda j: j, i)), G))
     # Adding vertices individually
     for k in range(nV):
