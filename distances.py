@@ -1,7 +1,6 @@
 import networkx as nx
 from numpy import Inf
 import numpy as np
-from collections import OrderedDict
 
 def print_nodes(G):
     print("Vértices:|", end="")
